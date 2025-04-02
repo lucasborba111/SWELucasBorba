@@ -9,6 +9,13 @@ import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useLanguage } from "@/contexts/language-context"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { ReactNode } from "react"
+
+interface AnimatedSectionProps {
+  id?: string
+  children: ReactNode
+  className?: string
+}
 
 // Animation variants
 const fadeIn = {
@@ -30,8 +37,8 @@ const staggerContainer = {
   },
 }
 
-function AnimatedSection({ id, children, className = "" }) {
-  const ref = useRef(null)
+function AnimatedSection({ id, children, className = "" }: AnimatedSectionProps) {
+  const ref = useRef<HTMLElement | null>(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
 
   return (
