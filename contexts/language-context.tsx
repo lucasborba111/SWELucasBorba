@@ -9,8 +9,12 @@ export type Language = "pt-BR" | "en-US"
 type LanguageContextType = {
   language: Language
   setLanguage: (language: Language) => void
-  t: (key: string) => string
+  t: (key: TranslationKeys) => string
 }
+
+// Define the translation keys
+type TranslationKeys = keyof typeof translations[Language]
+
 
 // Create the context
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -200,7 +204,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   }, [language])
 
   // Translation function
-  const t = (key: string): string => {
+  const t = (key: TranslationKeys): string => {
     return translations[language][key] || key
   }
 
